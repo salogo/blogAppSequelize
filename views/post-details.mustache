@@ -1,5 +1,24 @@
 <h1>Post Details</h1>
 
-{{name}}
-{{body}}
-{{category}}
+   <h1>{{name}}</h1>
+
+    <h3>Add a Review</h3>
+    <form method="POST" action="/add-review">
+         <div style="display:flex; flex-direction: column; width:50%">
+            <input type="hidden" name="postId" value="{{id}}" />
+            <input type="text" placeHolder="Enter title" name="title" />
+            <textarea name="description"></textarea>
+            <button>Submit</button>
+         </div>
+    </form>
+   
+   <h3>Reviews</h3>
+   <ul>
+   {{#reviews}}
+     <li>
+        {{title}}
+        <p>{{body}}</p>
+     </li>
+
+   {{/reviews}}
+   </ul>

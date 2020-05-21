@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.TEXT
   }, {});
   Post.associate = function(models) {
-    // associations can be defined here
+    models.Post.hasMany(models.Review, { as: 'reviews', foreignKey: 'post_id'})
   };
   return Post;
 };

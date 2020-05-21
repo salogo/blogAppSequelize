@@ -33,6 +33,8 @@ app.get('/posts',(req,res) => {
 
 })
 
+
+
 app.post('/add-post',(req,res) => {
 
     let name = req.body.name
@@ -53,6 +55,58 @@ app.post('/add-post',(req,res) => {
 
     }) 
 
+
+})
+//
+app.get('/reviews/:reviewId',(req,res) => {
+
+    let reviewId = req.params.reviewId 
+
+    models.Review.findByPk(reviewId,{
+        include: [
+            {
+                model: models.Post, 
+                as: 'post'
+            }
+        ]
+    }).then(review => {
+        res.json(review)
+    })
+
+})
+
+app.get('/posts/:postId',(req,res) => {
+
+    let postId = req.params.postId 
+
+    models.Post.findByPk(postId,{
+        include: [
+            {
+                model: models.Review, 
+                as: 'reviews'
+            }
+        ]
+    }).then(post => {
+        console.log(post.dataValues)
+        res.render('post-details',post.dataValues)
+    })
+})
+
+app.post('/add-review',(req,res) => {
+
+    let title = req.body.title
+    let description = req.body.description 
+    let postId = req.body.postId 
+console.log(req.body.postId)
+    let review = models.Review.build({
+        title: title, 
+        body: description, 
+        post_id: postId 
+    })
+
+    review.save().then(savedReview => {
+        res.redirect(`/posts/${postId}`)
+    })
 
 })
 

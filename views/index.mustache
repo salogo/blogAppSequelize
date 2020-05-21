@@ -1,21 +1,20 @@
 <html>
 <head></head>
 
-
 <body>
     <ul>
     {{#posts}} 
 
               <li>
                 <form method="POST" action="/delete-post">
-                <label>{{name}} {{body}}{{category}} </label>
+                <label>{{name}}{{id}} {{body}}{{category}} </label>
                 <input type="hidden" value = {{id}} name="postId" />
                 <button>Delete</button>
+                <a href="/posts/{{id}}" > <b> Add a Review</b>  </a>
                 </form>
             </li>
 
     {{/posts}}
     </ul>
-
 </body>
 </html>
